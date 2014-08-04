@@ -1,7 +1,7 @@
 requirejs.config({
-    baseUrl: 'js',	
+    baseUrl: 'js',
 	paths : {
-	app: '../app',
+	app: 'app', 
 	backbone : 'backbone.marionette/backbone',
 	underscore : 'backbone.marionette/underscore',
 	jquery : 'backbone.marionette/jquery',
@@ -26,18 +26,9 @@ requirejs.config({
 });
 
 //requirejs(['main']);
-
+App = '';
 $(document).ready(function(){
 	require(["main"],function(main){
 		main.start();
 	});
 });
-// For any third party dependencies, like jQuery, place them in the lib folder.
-
-// Configure loading modules from the lib directory,
-// except for 'app' ones, which are in a sibling
-// directory.
-
-
-// Start loading the main app file. Put all of
-// your application logic in there.
