@@ -1,4 +1,4 @@
-define( ["marionette", "underscore", "layout"], function (Marionette, Underscore, Layout) {
+define( ["marionette", "underscore", "layout/layout", "router"], function (Marionette, Underscore, Layout, Router) {
 
 	// set up the app instance
 	App = new Marionette.Application();
@@ -8,7 +8,7 @@ define( ["marionette", "underscore", "layout"], function (Marionette, Underscore
 	});
 
 	
-	var Router = Marionette.AppRouter.extend({
+	var RouteHandler = Marionette.AppRouter.extend({
 		appRoutes: { 
 			"about": "LoadAbout",
 			"" : "LoadWebsite"
@@ -16,10 +16,9 @@ define( ["marionette", "underscore", "layout"], function (Marionette, Underscore
 		controller: App
 	});
 	
-	
-	
 	App.addInitializer(function(options){
-		new Router();
+	Router();
+		new RouteHandler();
 		Backbone.history.start({ silent: true });
 		App.LoadWebsite();
 		
@@ -32,8 +31,6 @@ define( ["marionette", "underscore", "layout"], function (Marionette, Underscore
 		});
 		
 		App.layoutView.content.show(new view())
-		
-		console.log("\n\n saying HIII\n\n");
 	};
 	
 	// Load up the 'outer template' - this is somewhat static nomatter where you navigate.
@@ -45,10 +42,22 @@ define( ["marionette", "underscore", "layout"], function (Marionette, Underscore
 		App.wrapper.show(App.layoutView);
 		
 		var view = Marionette.ItemView.extend({
-			template: '<div>hello world <a href="other">test</a></div>'
+			template: '<div>hello world <a href="other">test</a></div>',
+			initialize: function(){
+				this.windowWidth = 0;
+				$(window).on("resize", this.resizeHandler);
+				$(window).on("resize", this.render);       
+			},
+			resizeHandler: function () {
+				this.windowWidth = ($(window).width() - 420 )+ "px" ;
+			},
+			onClose: function() {
+				$(window).off("resize", this.resizeHandler);
+				$(window).off("resize", this.render);                
+			}
 		});
 		
-		App.layoutView.content.show(new view())
+		App.layoutView.content.show(new view());
 		console.log('starting the application');
 		
 		var action = window.location.pathname;

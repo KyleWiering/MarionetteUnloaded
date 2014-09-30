@@ -1,0 +1,46 @@
+#header{
+	width:90%;
+	margin:0px auto;
+}
+#navigation{
+	float:left;
+	width:200px;
+}
+
+#navigation a {
+	color:#fff;
+	display:block;
+	width: 100%;
+	background-color:#800080;
+	text-decoration: none;
+	padding-top:2px;
+	padding-bottom:2px;
+	opacity:.85;
+}
+
+#navigation a:hover {
+	color:black;
+	background-color:white;
+	transition: background .5s ease-in-out;
+	opacity:1;
+	cursor:pointer;
+}
+
+
+#advertisement{
+	float:right;
+	width: 200px;
+}
+#content{
+	float:left;
+	margin: 0px auto;
+	padding-left:10px;
+}
+#footer{
+	position: absolute;
+	width:100%;
+	text-align: center;
+	padding-top:20px;
+	clear:both;
+	bottom:0px;
+}
